@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
-//import RxDataSources
+import RxDataSources
 
 class MenuViewController: UIViewController {
     let disposedBag = DisposeBag()
@@ -19,18 +19,18 @@ class MenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel.menusOb
-            .bind(to: tableView.rx.items(cellIdentifier: celliden, cellType: MenuItemTableViewCell.self)) { (index, item, cell) in
-                cell.title.text = item.name
-                cell.price.text = "\(item.price)"
-                cell.count.text = "\(item.num)"
-                
-                cell.onChange = { [weak self] int in
-                    self?.viewModel.changeNum(item: item, increase: int)
-                }
-            }
-            .disposed(by: disposedBag)
+        setDataSourceUI()
+//        viewModel.menusOb
+//            .bind(to: tableView.rx.items(cellIdentifier: celliden, cellType: MenuItemTableViewCell.self)) { (index, item, cell) in
+//                cell.title.text = item.name
+//                cell.price.text = "\(item.price)"
+//                cell.count.text = "\(item.num)"
+//
+//                cell.onChange = { [weak self] int in
+//                    self?.viewModel.changeNum(item: item, increase: int)
+//                }
+//            }
+//            .disposed(by: disposedBag)
             
         
         viewModel.itemsCount
@@ -58,6 +58,25 @@ class MenuViewController: UIViewController {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default))
         present(alertVC, animated: true, completion: nil)
+    }
+    
+    func setDataSourceUI() {
+        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, Menu>> { datasource, tableView, IndexPath, item in
+            let cell = tableView.dequeueReusableCell(withIdentifier: self.celliden, for: IndexPath) as! MenuItemTableViewCell
+            cell.title.text = item.name
+            cell.price.text = "\(item.price)"
+            cell.count.text = "\(item.num)"
+            
+            cell.onChange = { [weak self] int in
+                self?.viewModel.changeNum(item: item, increase: int)
+            }
+
+            return cell
+        }
+        viewModel.menusOb
+            .map { [SectionModel(model: "Section", items: $0)] }
+            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposedBag)
     }
 
     // MARK: - InterfaceBuilder Links
