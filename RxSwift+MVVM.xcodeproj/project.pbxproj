@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		862C87662ABED87A00DC6831 /* RxController in Frameworks */ = {isa = PBXBuildFile; productRef = 862C87652ABED87A00DC6831 /* RxController */; };
 		869A733F2AB8750A002CA6D4 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 869A733E2AB8750A002CA6D4 /* RxDataSources */; };
+		869A73472ABEAF00002CA6D4 /* ViewMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869A73462ABEAF00002CA6D4 /* ViewMenu.swift */; };
+		869A734F2ABEB812002CA6D4 /* MenuStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869A734E2ABEB812002CA6D4 /* MenuStore.swift */; };
 		86E39E202AB6DC82002FD6F5 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 86E39E1F2AB6DC82002FD6F5 /* RxCocoa */; };
 		86E39E222AB6DC82002FD6F5 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 86E39E212AB6DC82002FD6F5 /* RxSwift */; };
 		86E39E242AB71131002FD6F5 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E39E232AB71131002FD6F5 /* MenuViewModel.swift */; };
@@ -17,13 +20,15 @@
 		A168F0A722F7FB2E00A9E178 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A168F0A622F7FB2E00A9E178 /* Assets.xcassets */; };
 		A168F0AA22F7FB2E00A9E178 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A168F0A822F7FB2E00A9E178 /* LaunchScreen.storyboard */; };
 		A168F0B622FADE5B00A9E178 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168F0B522FADE5B00A9E178 /* APIService.swift */; };
-		A168F0B822FADE7000A9E178 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168F0B722FADE7000A9E178 /* Model.swift */; };
+		A168F0B822FADE7000A9E178 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168F0B722FADE7000A9E178 /* MenuItem.swift */; };
 		A168F0BC22FAF9B800A9E178 /* MenuItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168F0BB22FAF9B800A9E178 /* MenuItemTableViewCell.swift */; };
 		A168F0BE22FAFAC300A9E178 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168F0BD22FAFAC300A9E178 /* OrderViewController.swift */; };
 		A1869B8D2360A8000088AA9A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1869B8C2360A8000088AA9A /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		869A73462ABEAF00002CA6D4 /* ViewMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMenu.swift; sourceTree = "<group>"; };
+		869A734E2ABEB812002CA6D4 /* MenuStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuStore.swift; sourceTree = "<group>"; };
 		86E39E232AB71131002FD6F5 /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
 		A168F09C22F7FB2C00A9E178 /* RxSwift+MVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RxSwift+MVVM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A168F09F22F7FB2C00A9E178 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -33,7 +38,7 @@
 		A168F0A922F7FB2E00A9E178 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A168F0AB22F7FB2E00A9E178 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A168F0B522FADE5B00A9E178 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
-		A168F0B722FADE7000A9E178 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Model.swift; path = "RxSwift+MVVM/Domain/Model.swift"; sourceTree = SOURCE_ROOT; };
+		A168F0B722FADE7000A9E178 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuItem.swift; path = "RxSwift+MVVM/Domain/MenuItem.swift"; sourceTree = SOURCE_ROOT; };
 		A168F0BB22FAF9B800A9E178 /* MenuItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemTableViewCell.swift; sourceTree = "<group>"; };
 		A168F0BD22FAFAC300A9E178 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		A1869B8C2360A8000088AA9A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -47,6 +52,7 @@
 			files = (
 				869A733F2AB8750A002CA6D4 /* RxDataSources in Frameworks */,
 				86E39E222AB6DC82002FD6F5 /* RxSwift in Frameworks */,
+				862C87662ABED87A00DC6831 /* RxController in Frameworks */,
 				86E39E202AB6DC82002FD6F5 /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,6 +66,15 @@
 				D3442FB936BB096840300742 /* Pods_RxSwift_MVVM.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		869A73482ABEB03D002CA6D4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				869A73462ABEAF00002CA6D4 /* ViewMenu.swift */,
+				86E39E232AB71131002FD6F5 /* MenuViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		A168F09322F7FB2C00A9E178 = {
@@ -84,8 +99,10 @@
 			children = (
 				A1869B832360A6580088AA9A /* App */,
 				A1869B842360A6B40088AA9A /* Assets */,
+				A1869B872360A7580088AA9A /* Service */,
 				A1869B852360A7420088AA9A /* Domain */,
-				A1869B882360A7810088AA9A /* Pages */,
+				869A73482ABEB03D002CA6D4 /* ViewModel */,
+				A1869B892360A78C0088AA9A /* View */,
 				A1869B8B2360A7C00088AA9A /* Utils */,
 			);
 			path = "RxSwift+MVVM";
@@ -113,8 +130,8 @@
 		A1869B852360A7420088AA9A /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				A168F0B722FADE7000A9E178 /* Model.swift */,
-				A1869B872360A7580088AA9A /* Service */,
+				A168F0B722FADE7000A9E178 /* MenuItem.swift */,
+				869A734E2ABEB812002CA6D4 /* MenuStore.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -127,23 +144,14 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		A1869B882360A7810088AA9A /* Pages */ = {
+		A1869B892360A78C0088AA9A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A1869B892360A78C0088AA9A /* MenuList */,
 				A1869B8A2360A79F0088AA9A /* Order */,
-			);
-			path = Pages;
-			sourceTree = "<group>";
-		};
-		A1869B892360A78C0088AA9A /* MenuList */ = {
-			isa = PBXGroup;
-			children = (
 				A168F0A122F7FB2C00A9E178 /* MenuViewController.swift */,
 				A168F0BB22FAF9B800A9E178 /* MenuItemTableViewCell.swift */,
-				86E39E232AB71131002FD6F5 /* MenuViewModel.swift */,
 			);
-			path = MenuList;
+			path = View;
 			sourceTree = "<group>";
 		};
 		A1869B8A2360A79F0088AA9A /* Order */ = {
@@ -182,6 +190,7 @@
 				86E39E1F2AB6DC82002FD6F5 /* RxCocoa */,
 				86E39E212AB6DC82002FD6F5 /* RxSwift */,
 				869A733E2AB8750A002CA6D4 /* RxDataSources */,
+				862C87652ABED87A00DC6831 /* RxController */,
 			);
 			productName = "RxSwift+MVVM";
 			productReference = A168F09C22F7FB2C00A9E178 /* RxSwift+MVVM.app */;
@@ -214,6 +223,7 @@
 			packageReferences = (
 				86E39E1E2AB6DC82002FD6F5 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				869A733D2AB8750A002CA6D4 /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				862C87642ABED87A00DC6831 /* XCRemoteSwiftPackageReference "RxController" */,
 			);
 			productRefGroup = A168F09D22F7FB2C00A9E178 /* Products */;
 			projectDirPath = "";
@@ -242,13 +252,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				869A734F2ABEB812002CA6D4 /* MenuStore.swift in Sources */,
 				A168F0A222F7FB2C00A9E178 /* MenuViewController.swift in Sources */,
+				869A73472ABEAF00002CA6D4 /* ViewMenu.swift in Sources */,
 				A168F0B622FADE5B00A9E178 /* APIService.swift in Sources */,
 				A1869B8D2360A8000088AA9A /* Extensions.swift in Sources */,
 				A168F0BE22FAFAC300A9E178 /* OrderViewController.swift in Sources */,
 				A168F0BC22FAF9B800A9E178 /* MenuItemTableViewCell.swift in Sources */,
 				A168F0A022F7FB2C00A9E178 /* AppDelegate.swift in Sources */,
-				A168F0B822FADE7000A9E178 /* Model.swift in Sources */,
+				A168F0B822FADE7000A9E178 /* MenuItem.swift in Sources */,
 				86E39E242AB71131002FD6F5 /* MenuViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,6 +465,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		862C87642ABED87A00DC6831 /* XCRemoteSwiftPackageReference "RxController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxController.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		869A733D2AB8750A002CA6D4 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
@@ -472,6 +492,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		862C87652ABED87A00DC6831 /* RxController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 862C87642ABED87A00DC6831 /* XCRemoteSwiftPackageReference "RxController" */;
+			productName = RxController;
+		};
 		869A733E2AB8750A002CA6D4 /* RxDataSources */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 869A733D2AB8750A002CA6D4 /* XCRemoteSwiftPackageReference "RxDataSources" */;

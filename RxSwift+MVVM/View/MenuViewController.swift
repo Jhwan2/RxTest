@@ -10,6 +10,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
+import RxController
+import RxFlow
 
 class MenuViewController: UIViewController {
     let disposedBag = DisposeBag()
@@ -19,28 +21,15 @@ class MenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.refreshControl = UIRefreshControl()
         setDataSourceUI()
-//        viewModel.menusOb
-//            .bind(to: tableView.rx.items(cellIdentifier: celliden, cellType: MenuItemTableViewCell.self)) { (index, item, cell) in
-//                cell.title.text = item.name
-//                cell.price.text = "\(item.price)"
-//                cell.count.text = "\(item.num)"
-//
-//                cell.onChange = { [weak self] int in
-//                    self?.viewModel.changeNum(item: item, increase: int)
-//                }
-//            }
-//            .disposed(by: disposedBag)
-            
         
-        viewModel.itemsCount
-            .map { "\($0)" }
+        viewModel.totalSelectedCountText
             .observe(on: MainScheduler.instance)
             .bind(to: itemCountLabel.rx.text)
             .disposed(by: disposedBag)
         
-        viewModel.totalPrice
-            .map { $0.currencyKR() }
+        viewModel.totalPriceText
             .observe(on: MainScheduler.instance)
             .bind(to: totalPrice.rx.text )
             .disposed(by: disposedBag)
@@ -61,7 +50,7 @@ class MenuViewController: UIViewController {
     }
     
     func setDataSourceUI() {
-        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, Menu>> { datasource, tableView, IndexPath, item in
+        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, ViewMenu>> { datasource, tableView, IndexPath, item in
             let cell = tableView.dequeueReusableCell(withIdentifier: self.celliden, for: IndexPath) as! MenuItemTableViewCell
             cell.title.text = item.name
             cell.price.text = "\(item.price)"
@@ -99,18 +88,3 @@ class MenuViewController: UIViewController {
     }
 }
 
-//extension MenuViewController: UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 5
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuItemTableViewCell") as! MenuItemTableViewCell
-//
-//        cell.title.text = "MENU \(indexPath.row)"
-//        cell.price.text = "\(indexPath.row * 100)"
-//        cell.count.text = "0"
-//
-//        return cell
-//    }
-//}

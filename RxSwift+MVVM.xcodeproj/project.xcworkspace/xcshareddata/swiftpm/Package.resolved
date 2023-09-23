@@ -1,12 +1,30 @@
 {
   "pins" : [
     {
+      "identity" : "rxcontroller",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RxSwiftCommunity/RxController.git",
+      "state" : {
+        "revision" : "a316483d0520dc0d3d357182e8a390ea9e13b3a6",
+        "version" : "1.3.1"
+      }
+    },
+    {
       "identity" : "rxdatasources",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RxSwiftCommunity/RxDataSources.git",
       "state" : {
         "revision" : "90c29b48b628479097fe775ed1966d75ac374518",
         "version" : "5.0.2"
+      }
+    },
+    {
+      "identity" : "rxflow",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RxSwiftCommunity/RxFlow.git",
+      "state" : {
+        "revision" : "d8d4e53d05239f1ec1bd8bec173907868afa0fa1",
+        "version" : "2.13.0"
       }
     },
     {
