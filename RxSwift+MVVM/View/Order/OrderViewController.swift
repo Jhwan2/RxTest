@@ -10,7 +10,7 @@ import UIKit
 
 class OrderViewController: UIViewController {
     // MARK: - Life Cycle
-
+    static let identifier = "OrderViewController"
     override func viewDidLoad() {
         super.viewDidLoad()
         
