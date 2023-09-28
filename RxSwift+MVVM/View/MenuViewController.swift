@@ -79,7 +79,6 @@ class MenuViewController: UIViewController {
         let reload = tableView.refreshControl?.rx
             .controlEvent(.valueChanged)
             .map { _ in () } ?? Observable.just(())
-
         Observable.merge([firstLoad, reload])
             .bind(to: viewModel.fetchMenus)
             .disposed(by: disposeBag)
