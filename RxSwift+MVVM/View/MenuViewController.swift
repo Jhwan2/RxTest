@@ -60,6 +60,7 @@ class MenuViewController: UIViewController {
                 self?.viewModel.changeNum(item: item, increase: int)
             }
             return cell
+            
         }
         viewModel.menusOb
             .map { [SectionModel(model: "Section", items: $0)] }
