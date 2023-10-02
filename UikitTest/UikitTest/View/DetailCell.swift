@@ -8,31 +8,24 @@
 import UIKit
 import SnapKit
 
-class DetailCell: UICollectionViewCell {
+final class DetailCell: UICollectionViewCell {
     
     var num: Int = 0
     
     private lazy var titleLabel: UILabel = {
        let label = UILabel()
-        label.text = "더할 것 1"
+        label.text = "더할 것"
         label.font = .systemFont(ofSize: 14)
         return label
     }()
     
     private lazy var textField: UITextField = {
-        let field = UITextField(frame: .zero)
-        field.layer.cornerRadius = 10
-        field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.lightGray.cgColor
-        return field
+        return lineTextfield()
     }()
     
     private lazy var button: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("입력", for: .normal)
+        let button = defualtButton(title: "입력")
         button.backgroundColor = .lightGray
-        button.layer.cornerRadius = 12
-        button.tintColor = .white
         return button
     }()
     

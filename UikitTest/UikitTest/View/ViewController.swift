@@ -8,7 +8,16 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
+    private let celliden = "tableViewCell"
+    
+    var dataList: [Pronunciation] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
 
     let labelOne: UILabel = {
        let label = UILabel()
@@ -38,11 +47,7 @@ class ViewController: UIViewController {
     }()
     
     let addButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("추가", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 12
-        button.backgroundColor = UIColor(red: 0.13, green: 0.58, blue: 1, alpha: 1)
+        let button = defualtButton(title: "추가")
         button.addTarget(self, action: #selector(addPronunciation), for: .touchUpInside)
         return button
     }()
@@ -53,6 +58,7 @@ class ViewController: UIViewController {
     }
     
     func configureUI() {
+        tableViewSet()
         view.addSubview(labelOne)
         labelOne.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(87)
@@ -71,13 +77,21 @@ class ViewController: UIViewController {
             make.width.equalTo(358)
             make.height.equalTo(188)
         }
-        tableView.backgroundView = emptyView
         
         view.addSubview(addButton)
         addButton.snp.makeConstraints { make in
             make.top.equalTo(tableView.snp.bottom).offset(26)
             make.leading.trailing.equalTo(tableView)
             make.height.equalTo(48)
+        }
+        
+        func tableViewSet() {
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.backgroundView = dataList.count == 0 ? emptyView : nil
+            tableView.register(VCTableViewCell.self, forCellReuseIdentifier: celliden)
+            tableView.rowHeight = 96 + 16
+            tableView.separatorStyle = .none
         }
         
     }
@@ -87,5 +101,22 @@ class ViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
 
+}
+
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: celliden, for: indexPath) as! VCTableViewCell
+        
+        return cell
+    }
+    
+}
+
+extension ViewController: UITableViewDelegate {
+//    func tableview
 }
 
