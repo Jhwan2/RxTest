@@ -8,16 +8,26 @@
 import UIKit
 import SnapKit
 
-class VCTableViewCell: UITableViewCell {
+final class VCTableViewCell: UITableViewCell {
     
-    let resultStack: UIView = {
+    var data: Pronunciation? {
+        didSet {
+            dataInput()
+        }
+    }
+    
+    let resultLabel: UILabel = {
+        let label = UILabel()
+        label.text = "22"
+        label.font = .boldSystemFont(ofSize: 16)
+        return label
+    }()
+    
+    lazy var resultStack: UIView = {
         let label1 = UILabel()
         label1.text = "결과"
         label1.font = .boldSystemFont(ofSize: 14)
-        let label2 = UILabel()
-        label2.text = "22"
-        label2.font = .boldSystemFont(ofSize: 16)
-        let stack = UIStackView(arrangedSubviews: [label1, label2])
+        let stack = UIStackView(arrangedSubviews: [label1, resultLabel])
         stack.axis = .vertical
         stack.alignment = .center
         stack.distribution = .fillEqually
@@ -44,6 +54,7 @@ class VCTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+//        guard let pro = p
         configureUI()
     }
     
@@ -80,10 +91,10 @@ class VCTableViewCell: UITableViewCell {
         }
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func dataInput() {
+        guard let data = data else { return }
+        resultLabel.text = "\(data.sumOfAdding())"
+        titleLabel.text = data.title
     }
 
 }

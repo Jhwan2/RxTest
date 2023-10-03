@@ -7,8 +7,11 @@
 
 import Foundation
 
-struct ViewControllerViewModel {
-    var dataList: [Pronunciation] = []
+struct DetailViewModel {
+    var data: Pronunciation
     
+    var resultString: String {
+        return "\(data.adding.reduce(0, +))"
+    }
     
 }

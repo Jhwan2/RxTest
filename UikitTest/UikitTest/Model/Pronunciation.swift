@@ -8,6 +8,10 @@
 import Foundation
 
 struct Pronunciation {
-    let title: String
-    let adding: [Int]    
+    var title: String
+    var adding: [Int]
+    
+    func sumOfAdding() -> Int {
+        return adding.reduce(0, +)
+    }
 }

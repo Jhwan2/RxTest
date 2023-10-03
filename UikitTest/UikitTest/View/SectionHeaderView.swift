@@ -24,7 +24,7 @@ final class SectionHeaderView: UICollectionReusableView {
         return label
     }()
     
-    private let button: UIButton = {
+    lazy var button: UIButton = {
         let button = defualtButton(title: "추가")
         button.addTarget(self, action: #selector(addListButtonTapped), for: .touchUpInside)
         return button

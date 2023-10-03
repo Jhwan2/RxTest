@@ -13,26 +13,24 @@ final class ViewController: UIViewController {
     
     var dataList: [Pronunciation] = [] {
         didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            self.tableViewUpdata()
         }
     }
 
-    let labelOne: UILabel = {
+    private let labelOne: UILabel = {
        let label = UILabel()
         label.text = "정산목록"
         label.font = .boldSystemFont(ofSize: 18)
         return label
     }()
     
-    let tableView: UITableView = {
+    private let tableView: UITableView = {
         let collection = UITableView(frame: .zero)
         collection.backgroundColor = .white
         return collection
     }()
     
-    let emptyView: UIView = {
+    private let emptyView: UIView = {
         let view = UIView(frame: .zero)
         view.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
         view.layer.cornerRadius = 12
@@ -46,7 +44,7 @@ final class ViewController: UIViewController {
         return view
     }()
     
-    let addButton: UIButton = {
+    private lazy var addButton: UIButton = {
         let button = defualtButton(title: "추가")
         button.addTarget(self, action: #selector(addPronunciation), for: .touchUpInside)
         return button
@@ -57,7 +55,7 @@ final class ViewController: UIViewController {
         configureUI()
     }
     
-    func configureUI() {
+    private func configureUI() {
         tableViewSet()
         view.addSubview(labelOne)
         labelOne.snp.makeConstraints { make in
@@ -85,18 +83,31 @@ final class ViewController: UIViewController {
             make.height.equalTo(48)
         }
         
-        func tableViewSet() {
-            tableView.delegate = self
-            tableView.dataSource = self
-            tableView.backgroundView = dataList.count == 0 ? emptyView : nil
-            tableView.register(VCTableViewCell.self, forCellReuseIdentifier: celliden)
-            tableView.rowHeight = 96 + 16
-            tableView.separatorStyle = .none
-        }
-        
+//        let appearance = UINavigationBarAppearance()
+//        appearance.shadowColor = nil
+//        appearance.backgroundColor = nil
+//        navigationController?.navigationBar.standardAppearance = appearance
+//        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
-    @objc func addPronunciation() {
+    private func tableViewSet() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundView = dataList.count == 0 ? emptyView : UIView(frame: .zero)
+        tableView.register(VCTableViewCell.self, forCellReuseIdentifier: celliden)
+        tableView.rowHeight = 96 + 16
+        tableView.separatorStyle = .none
+        tableView.allowsSelection = false
+    }
+    
+    private func tableViewUpdata() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        tableView.backgroundView = dataList.count == 0 ? emptyView : UIView(frame: .zero)
+    }
+    
+    @objc private func addPronunciation() {
         let vc = DetailViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -110,7 +121,7 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: celliden, for: indexPath) as! VCTableViewCell
-        
+        cell.data = dataList[indexPath.row]
         return cell
     }
     

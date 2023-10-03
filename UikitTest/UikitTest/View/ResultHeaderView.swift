@@ -17,9 +17,10 @@ final class ResultHeaderView: UICollectionReusableView {
     
     weak var delegate: ResultHeaderViewDelegate?
     
-    private let adddButton: UIButton = {
+    lazy var adddButton: UIButton = {
         let button = defualtButton(title: "연산")
         button.backgroundColor = .lightGray
+        button.isEnabled = false
         button.addTarget(self, action: #selector(resultButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -110,7 +111,12 @@ final class ResultHeaderView: UICollectionReusableView {
     }
     
     @objc func resultButtonTapped() {
+        resultTextField.layer.borderColor = UIColor.blueCustom.cgColor
         delegate?.resultButtonTapped()
+    }
+    
+    func setSumResult(_ result: Int) {
+        resultTextField.text = "\(result)"
     }
     
 }

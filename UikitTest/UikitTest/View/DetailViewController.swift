@@ -21,11 +21,11 @@ final class DetailViewController: UICollectionViewController {
         }
     }
     
-    let saveButton: UIButton = {
+    private lazy var saveButton: UIButton = {
         let button = defualtButton(title: "저장")
         button.backgroundColor = .lightGray
+        button.isEnabled = false
         button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-//        button.isEnabled = false
         return button
     }()
     
@@ -34,8 +34,13 @@ final class DetailViewController: UICollectionViewController {
         configureUI()
     }
     
+    init(pronun: Pronunciation) {
+        pronunciaion = pronun
+        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+    }
+    
     init() {
-        pronunciaion = Pronunciation(title: "dumy", adding: [])
+        pronunciaion = Pronunciation(title: "", adding: [0])
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
@@ -44,7 +49,7 @@ final class DetailViewController: UICollectionViewController {
     }
     
     
-    func configureUI() {
+    private func configureUI() {
         navigationSet()
         collectionViewSet()
         view.addSubview(saveButton)
@@ -56,16 +61,16 @@ final class DetailViewController: UICollectionViewController {
         }
     }
     
-    func navigationSet() {
+    private func navigationSet() {
         navigationItem.title = "정산 디테일"
-        let appearance = UINavigationBarAppearance()
-        appearance.shadowColor = .gray
-        appearance.backgroundColor = .white
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//        let appearance = UINavigationBarAppearance()
+//        appearance.shadowColor = .gray
+//        appearance.backgroundColor = .white
+//        navigationController?.navigationBar.standardAppearance = appearance
+//        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
 
-    func collectionViewSet() {
+    private func collectionViewSet() {
         collectionView.backgroundColor = .white
         collectionView.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionidentifier)
         collectionView.register(DetailCell.self, forCellWithReuseIdentifier: identifierCell)
@@ -76,16 +81,14 @@ final class DetailViewController: UICollectionViewController {
         collectionView.collectionViewLayout = layout
     }
     
-    @objc func saveButtonTapped() {
+    @objc private func saveButtonTapped() {
         print("버튼눌림 돌아가 !")
+        let vc = navigationController?.viewControllers.first as! ViewController
+        vc.dataList.append(pronunciaion)
         self.navigationController?.popViewController(animated: true)
     }
 }
 
-//MARK: CollectionView Delegate
-extension DetailViewController {
-    
-}
 
 //MARK: CollectionView DataSource
 extension DetailViewController {
@@ -108,18 +111,14 @@ extension DetailViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifierCell, for: indexPath) as? DetailCell ?? UICollectionViewCell()
-            return cell
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifierCell, for: indexPath)
-            return cell
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifierCell, for: indexPath) as! DetailCell
+        cell.index = indexPath
+        cell.delegate = self
+        return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return section == 0 ? pronunciaion.adding.count : 1
-        return section == 0 ? 1 : 0
+        return section == 0 ? pronunciaion.adding.count : 0
     }
 }
 
@@ -140,18 +139,42 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
 
 extension DetailViewController: ResultHeaderViewDelegate {
     func titleTextFieldDidEndEditing(text: String?) {
-        print(text ?? "@@")
+        guard let st = text else { return }
+        pronunciaion.title = st
     }
     
     func resultButtonTapped() {
         print("연산 하기!")
+        if let headerView = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0)) as? SectionHeaderView {
+            headerView.button.isEnabled = false
+            headerView.button.backgroundColor = .lightGray
+        }
+        let sum = pronunciaion.sumOfAdding()
+        // ResultHeaderView에 접근하여 더한 값을 설정합니다.
+        if let headerView = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 1)) as? ResultHeaderView {
+            headerView.setSumResult(sum)
+        }
+        saveButton.backgroundColor = .blueCustom
+        saveButton.isEnabled = true
     }
     
 }
 
 extension DetailViewController: SectionHeaderViewDelegate {
     func addListButtonTapped() {
-        print("리스트 추가 !")
+        pronunciaion.adding.append(0)
+        print("리스트 추가 ! ->")
     }
-    
+}
+
+extension DetailViewController: DetailCellDelegate {
+    func didTapButton(value: Int, at indexPath: IndexPath) {
+        pronunciaion.adding[indexPath.item] = value
+        
+        if let headerView = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 1)) as? ResultHeaderView {
+            headerView.adddButton.backgroundColor = .blueCustom
+            headerView.adddButton.isEnabled = true
+        }
+        
+    }
 }
