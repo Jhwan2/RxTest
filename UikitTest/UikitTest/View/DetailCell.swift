@@ -25,7 +25,7 @@ final class DetailCell: UICollectionViewCell {
         return label
     }()
     
-    private var textField: UITextField = {
+    var textField: UITextField = {
         return lineTextfield()
     }()
     

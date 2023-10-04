@@ -97,7 +97,7 @@ final class ViewController: UIViewController {
         tableView.register(VCTableViewCell.self, forCellReuseIdentifier: celliden)
         tableView.rowHeight = 96 + 16
         tableView.separatorStyle = .none
-        tableView.allowsSelection = false
+//        tableView.allowsSelection = false
     }
     
     private func tableViewUpdata() {
@@ -121,13 +121,29 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: celliden, for: indexPath) as! VCTableViewCell
+        cell.selectionStyle = .none
         cell.data = dataList[indexPath.row]
+        cell.index = indexPath.row
+        cell.delegate = self
         return cell
     }
     
 }
 
 extension ViewController: UITableViewDelegate {
-//    func tableview
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        var viewModel = DetailViewModel(pronunciation: dataList[indexPath.row])
+        viewModel.index = indexPath.row
+        let vc = DetailViewController(viewModel: viewModel)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
+extension ViewController: VCTableViewCellDelegate {
+    func delButtonTapped(index: IndexPath.Element) {
+        dataList.remove(at: index)
+    }
+    
+    
+}

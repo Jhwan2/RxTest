@@ -8,7 +8,15 @@
 import UIKit
 import SnapKit
 
+protocol VCTableViewCellDelegate: AnyObject {
+    func delButtonTapped(index: IndexPath.Element)
+}
+
 final class VCTableViewCell: UITableViewCell {
+    
+    weak var delegate: VCTableViewCellDelegate?
+    
+    var index: IndexPath.Element?
     
     var data: Pronunciation? {
         didSet {
@@ -44,17 +52,20 @@ final class VCTableViewCell: UITableViewCell {
         return label
     }()
     
-    let delButton: UIButton = {
+    var delButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("삭제", for: .normal)
+        button.backgroundColor = .blue
         button.tintColor = .black
         button.titleLabel?.font = .systemFont(ofSize: 12)
+        button.isUserInteractionEnabled = true
         return button
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 //        guard let pro = p
+        delButton.addTarget(self, action: #selector(delButtonTapped), for: .touchUpInside)
         configureUI()
     }
     
@@ -64,9 +75,8 @@ final class VCTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-            // Cell 간격 조정
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0))
-      }
+        contentView.frame = bounds
+    }
     
     func configureUI() {
         addSubview(resultStack)
@@ -84,7 +94,7 @@ final class VCTableViewCell: UITableViewCell {
             make.centerY.equalToSuperview()
         }
         
-        addSubview(delButton)
+        contentView.addSubview(delButton)
         delButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().offset(-16)
@@ -95,6 +105,12 @@ final class VCTableViewCell: UITableViewCell {
         guard let data = data else { return }
         resultLabel.text = "\(data.sumOfAdding())"
         titleLabel.text = data.title
+    }
+    
+    @objc func delButtonTapped() {
+        print("삭제버튼눌림")
+        guard let index = index else { return }
+        delegate?.delButtonTapped(index: index)
     }
 
 }

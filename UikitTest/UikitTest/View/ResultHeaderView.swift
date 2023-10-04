@@ -115,8 +115,12 @@ final class ResultHeaderView: UICollectionReusableView {
         delegate?.resultButtonTapped()
     }
     
-    func setSumResult(_ result: Int) {
-        resultTextField.text = "\(result)"
+    func setSumResult(_ result: String) {
+        resultTextField.text = result
+    }
+    
+    func setTitle(title result: String) {
+        titleTextField.text = result
     }
     
 }
