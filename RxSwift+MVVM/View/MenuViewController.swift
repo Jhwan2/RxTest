@@ -57,7 +57,7 @@ class MenuViewController: UIViewController {
             cell.count.text = "\(item.num)"
             
             cell.onChange = { [weak self] int in
-                self?.viewModel.changeNum(item: item, increase: int)
+                self?.viewModel.changedNum(item: item, increase: int)
             }
             return cell
             
