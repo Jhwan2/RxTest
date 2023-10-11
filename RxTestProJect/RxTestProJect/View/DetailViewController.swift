@@ -94,8 +94,8 @@ final class DetailViewController: UICollectionViewController {
             .map { $0.adding }
             .map { arr in
                 [
-                    .sectionA(title: HeaderViewModelA(title: ""), items: [.adding(arr)]),
-                    .sectionB(subtitle: HeaderViewModelB(subtitle: ""), items: [])
+                    .sectionA(title: HeaderViewModelA(), items: [.adding(arr)]),
+                    .sectionB(subtitle: HeaderViewModelB(), items: [])
                 ]
             }
             .bind(to: collectionView.rx.items(dataSource: dataSource))

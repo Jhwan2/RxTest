@@ -7,15 +7,24 @@
 
 import RxSwift
 import RxDataSources
+import RxRelay
 
 // 첫 번째 섹션의 헤더 뷰 모델
 struct HeaderViewModelA {
-    let title: String
+    var listAppendBtn: PublishRelay<Void>
+    
+    init() {
+        listAppendBtn = PublishRelay<Void>()
+    }
 }
 
 // 두 번째 섹션의 헤더 뷰 모델
 struct HeaderViewModelB {
-    let subtitle: String
+    var resultString: BehaviorSubject<String>
+    
+    init() {
+        resultString = BehaviorSubject<String>(value: "")
+    }
 }
 
 enum CollectionModel {
